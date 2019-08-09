@@ -4,7 +4,7 @@ A new Flutter project.
 
 # 截图
 
-![发现页](https://github.com/rxc-wujianhua/flutter_music/screen/screen_discovery.jpg)
+![发现页](/screen/screen_discovery.jpg)
 
 
 ## Getting Started
