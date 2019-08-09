@@ -2,6 +2,11 @@
 
 A new Flutter project.
 
+# 截图
+
+![发现页](https://github.com/rxc-wujianhua/flutter_music/screen/screen_discovery.jpg)
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
