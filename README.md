@@ -1,6 +1,6 @@
 # flutter_music
 
-A new Flutter project.
+一个Flutter版本的网易云音乐
 
 # 截图
 
