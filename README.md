@@ -1,10 +1,10 @@
 # flutter_music
 
-A new Flutter project.
+一个Flutter版本的网易云音乐
 
 # 截图
 
-![发现页](https://github.com/rxc-wujianhua/flutter_music/screen/screen_discovery.jpg)
+![发现页](/screen/screen_discovery.jpg)
 
 
 ## Getting Started
