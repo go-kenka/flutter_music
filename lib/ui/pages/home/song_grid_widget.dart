@@ -29,37 +29,17 @@ class _SongGridWidgetState extends State<SongGridWidget> {
           final future = _store.personalizedFuture;
           switch (future.status) {
             case FutureStatus.pending:
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SpinKitRotatingCircle(
-                    color: Colors.red,
-                    size: 25.0,
-                  ),
-                  Text('Loading personalized...'),
-                ],
-              );
+              return buildEmpty();
 
             case FutureStatus.rejected:
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    'Failed to load personalized.',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  RaisedButton(
-                    child: const Text('Tap to try again'),
-                    onPressed: () {},
-                  )
-                ],
-              );
+              return buildEmpty();
 
             case FutureStatus.fulfilled:
               final List<Personalized> items = future.result;
               final width = ScreenUtil.getInstance().screenWidth;
               return Container(
                 width: width,
+                height: 400.0,
                 padding: EdgeInsets.only(
                     top: 8.0, bottom: 8.0, left: 16.0, right: 16.0),
                 child: Column(
@@ -102,137 +82,149 @@ class _SongGridWidgetState extends State<SongGridWidget> {
                         )
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16.0),
-                      child: Row(
-                        children: map<Widget>(items.sublist(0, 3),
-                            (index, Personalized songs) {
-                          return Builder(builder: (BuildContext context) {
-                            return Expanded(
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Column(
-                                    children: <Widget>[
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(4.0),
-                                        ),
-                                        child: ExtendedImage.network(
-                                          songs.picUrl,
-                                          width: width / 3 - 20,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 8.0,
-                                            bottom: 8.0,
-                                            left: 1.0,
-                                            right: 1.0),
-                                        child: Text(
-                                          songs.name,
-                                          style: TextStyle(
-                                            fontSize: 10.0,
-                                            color: Colors.grey.shade800,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Positioned(
-                                    right: 10,
-                                    top: 0,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Row(
+                          children: map<Widget>(items.sublist(0, 3),
+                              (index, Personalized songs) {
+                            return Builder(builder: (BuildContext context) {
+                              return Expanded(
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    Column(
                                       children: <Widget>[
-                                        Icon(
-                                          Icons.play_arrow,
-                                          color: Colors.white,
-                                        ),
-                                        Text(
-                                          getPlayCount(songs.playCount),
-                                          style: TextStyle(
-                                            fontSize: 10.0,
-                                            color: Colors.white,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(4.0),
+                                          ),
+                                          child: ExtendedImage.network(
+                                            songs.picUrl,
+                                            enableLoadState: false,
+                                            width: width / 3 - 20,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 8.0,
+                                              bottom: 8.0,
+                                              left: 1.0,
+                                              right: 1.0),
+                                          child: Text(
+                                            songs.name,
+                                            style: TextStyle(
+                                              fontSize: 10.0,
+                                              color: Colors.grey.shade800,
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  )
-                                ],
-                              ),
-                              flex: 1,
-                            );
-                          });
-                        }),
+                                    Positioned(
+                                      right: 10,
+                                      top: 0,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.play_arrow,
+                                            color: Colors.white,
+                                            size: 14.0,
+                                          ),
+                                          Text(
+                                            getPlayCount(songs.playCount),
+                                            style: TextStyle(
+                                              fontSize: 10.0,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                flex: 1,
+                              );
+                            });
+                          }),
+                        ),
                       ),
+                      flex: 1,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16.0),
-                      child: Row(
-                        children: map<Widget>(items.sublist(3, 6),
-                            (index, Personalized songs) {
-                          return Builder(builder: (BuildContext context) {
-                            return Expanded(
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Column(
-                                    children: <Widget>[
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(4.0),
-                                        ),
-                                        child: ExtendedImage.network(
-                                          songs.picUrl,
-                                          width: width / 3 - 20,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 8.0,
-                                            bottom: 8.0,
-                                            left: 1.0,
-                                            right: 1.0),
-                                        child: Text(
-                                          songs.name,
-                                          style: TextStyle(
-                                            fontSize: 10.0,
-                                            color: Colors.grey.shade800,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Positioned(
-                                    right: 10,
-                                    top: 0,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          children: map<Widget>(items.sublist(6, 9),
+                              (index, Personalized songs) {
+                            return Builder(builder: (BuildContext context) {
+                              return Expanded(
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    Column(
                                       children: <Widget>[
-                                        Icon(
-                                          Icons.play_arrow,
-                                          color: Colors.white,
-                                        ),
-                                        Text(
-                                          getPlayCount(songs.playCount),
-                                          style: TextStyle(
-                                            fontSize: 10.0,
-                                            color: Colors.white,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(4.0),
+                                          ),
+                                          child: ExtendedImage.network(
+                                            songs.picUrl,
+                                            enableLoadState: false,
+                                            width: width / 3 - 20,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 8.0,
+                                              bottom: 8.0,
+                                              left: 1.0,
+                                              right: 1.0),
+                                          child: Text(
+                                            songs.name,
+                                            style: TextStyle(
+                                              fontSize: 10.0,
+                                              color: Colors.grey.shade800,
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  )
-                                ],
-                              ),
-                              flex: 1,
-                            );
-                          });
-                        }),
+                                    Positioned(
+                                      right: 10,
+                                      top: 0,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.play_arrow,
+                                            color: Colors.white,
+                                            size: 14.0,
+                                          ),
+                                          Text(
+                                            getPlayCount(songs.playCount),
+                                            style: TextStyle(
+                                              fontSize: 10.0,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                flex: 1,
+                              );
+                            });
+                          }),
+                        ),
                       ),
+                      flex: 1,
                     ),
                   ],
                 ),
@@ -240,6 +232,78 @@ class _SongGridWidgetState extends State<SongGridWidget> {
           }
         },
       );
+
+  Widget buildEmpty() {
+    final width = ScreenUtil.getInstance().screenWidth;
+    return Container(
+      width: width,
+      padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0, right: 16.0),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 16.0),
+            child: Row(
+              children: map<Widget>(
+                [0, 1, 2],
+                (index, data) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(4.0),
+                            ),
+                            child: Container(
+                              width: width / 3 - 20,
+                              height: 100,
+                              color: Colors.grey.shade300,
+                            ),
+                          ),
+                        ),
+                        flex: 1,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 16.0),
+            child: Row(
+              children: map<Widget>(
+                [0, 1, 2],
+                (index, data) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(4.0),
+                            ),
+                            child: Container(
+                              width: width / 3 - 20,
+                              height: 100,
+                              color: Colors.grey.shade300,
+                            ),
+                          ),
+                        ),
+                        flex: 1,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   /// getPlayCount
   /// 获取播放量

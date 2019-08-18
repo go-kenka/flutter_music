@@ -7,7 +7,6 @@ import 'package:flutter_music/api/models/banner_entity.dart';
 import 'package:flutter_music/api/stores/banner_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_music/util/map.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CarouselWidget extends StatefulWidget {
   CarouselWidget({Key key}) : super(key: key);
@@ -31,30 +30,29 @@ class _CarouselWidgetState extends State<CarouselWidget> {
           final future = _banner.bannersFuture;
           switch (future.status) {
             case FutureStatus.pending:
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SpinKitRotatingCircle(
-                    color: Colors.red,
-                    size: 25.0,
+              return Container(
+                padding: EdgeInsets.all(16.0),
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade100, width: 0.5),
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    color: Colors.grey.shade100, // 底色
                   ),
-                  Text('Loading banners...'),
-                ],
+                ),
               );
 
             case FutureStatus.rejected:
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    'Failed to load items.',
-                    style: TextStyle(color: Colors.red),
+              return Container(
+                padding: EdgeInsets.all(16.0),
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade100, width: 0.5),
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    color: Colors.grey.shade100, // 底色
                   ),
-                  RaisedButton(
-                    child: const Text('Tap to try again'),
-                    onPressed: () {},
-                  )
-                ],
+                ),
               );
 
             case FutureStatus.fulfilled:

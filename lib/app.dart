@@ -1,6 +1,7 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music/ui/pages/cloud/index.dart';
+import 'package:flutter_music/ui/pages/home/bottom_play_widget.dart';
 import 'package:flutter_music/ui/pages/home/index.dart';
 import 'package:flutter_music/ui/pages/me/index.dart';
 import 'package:flutter_music/ui/pages/move/index.dart';
@@ -76,6 +77,7 @@ class _AppState extends State<App> {
             MovePage(),
           ],
         ),
+        bottomNavigationBar: BottomPlayWidget(),
       ),
     );
   }

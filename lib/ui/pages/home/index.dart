@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music/ui/pages/home/bottom_play_widget.dart';
 import 'package:flutter_music/ui/pages/home/button_grid_widget.dart';
 import 'package:flutter_music/ui/pages/home/carousel_widget.dart';
 import 'package:flutter_music/ui/pages/home/new_grid_widget.dart';
 import 'package:flutter_music/ui/pages/home/song_grid_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -28,7 +28,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomPlayWidget(),
     );
   }
 
@@ -36,6 +35,12 @@ class HomePage extends StatelessWidget {
    * 模拟下拉刷新
    */
   Future<void> _onRefresh() async {
-    await Future.delayed(Duration(seconds: 3), () {});
+    await Future.delayed(Duration(seconds: 2), () {
+      Fluttertoast.showToast(
+          msg: "已为您推荐新的个性化内容",
+          gravity: ToastGravity.TOP,
+          fontSize: 12.0,
+          backgroundColor: Colors.black54);
+    });
   }
 }
